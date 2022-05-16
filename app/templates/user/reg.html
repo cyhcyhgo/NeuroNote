@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>用户注册</title>
-    <link rel="SHORTCUT ICON" href="{{ url_for('static', filename='image/logo/logo.png') }}">
+    <link rel="SHORTCUT ICON" href="{{ url_for('static', filename='images2/logo2.jpg') }}">
     <style>
         * {
             padding: 0;
@@ -37,7 +37,7 @@
 
         .whole {
             height: 670px;
-            background: url("{{ url_for('static',filename='image/user/background.jpg') }}") no-repeat;
+            background: url("{{ url_for('static',filename='sign_image/bg.jpg') }}") no-repeat;
             position: relative;
             background-size: 100% 100%;
         }
@@ -130,7 +130,7 @@
 <body>
     <div class="whole w">
     <div class="right">
-        <div class="reg"><a href="#">返回首页</a>&nbsp;&nbsp;<a href="{{ url_for('user.login') }}"
+        <div class="reg"><a href="{{ url_for('main.index') }}">返回首页</a>&nbsp;&nbsp;<a href="{{ url_for('user.login') }}"
                                                                                  style="font-size: 12px; text-decoration: underline;">已有账号?去登录</a>
         </div>
         <div class="user">
@@ -148,12 +148,15 @@
                 <form method="post" action="{{ url_for('user.reg') }}">
                     {{ form.hidden_tag() }}
                     <li class="sign_title">用户注册</li>
-                    <li>{{ form.username }}</li>
-                    <li>{{ form.password }}</li>
-                    <li>{{ form.password2 }}</li>
+                    <li><img src="{{ url_for('static',filename='sign_image/user.png') }}" alt=""
+                             style="height: 80%; width: auto; margin: 3px 5px 5px 12px;">{{ form.username }}</li>
+                    <li><img src="{{ url_for('static',filename='sign_image/pwd.png') }}" alt=""
+                             style="height: 80%; width: auto; margin: 3px 5px 5px 10px;">{{ form.password }}</li>
+                    <li><img src="{{ url_for('static',filename='sign_image/key.png') }}" alt=""
+                             style="height: 80%; width: auto; margin: 3px 5px 5px 10px;">{{ form.password2 }}</li>
                     <li>
-                        <img id="verify_code" src="{{ url_for('user.imgCode') }}" onclick="this.src='{{ url_for('user.imgCode') }}'+'?'+ Math.random()" alt="">
-                        {{ form.captcha }}
+                    <img id="verify_code" src="{{ url_for('user.imgCode') }}" onclick="this.src='{{ url_for('user.imgCode') }}'+'?'+ Math.random()" alt="">
+                    {{ form.captcha }}
                     </li>
                     {{ form.submit }}
                 </form>
