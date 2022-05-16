@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>用户登录</title>
-    <link rel="SHORTCUT ICON" href="{{ url_for('static', filename='images2/logo2.jpg') }}">
+    <link rel="SHORTCUT ICON" href="{{ url_for('static', filename='image/logo/logo.png') }}">
     <style>
         * {
             padding: 0;
@@ -13,6 +13,10 @@
 
         body {
             margin-top: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            background: url("{{url_for('static',filename='image/user/background.jpg')}}") no-repeat;
         }
 
         li {
@@ -37,8 +41,8 @@
 
         .whole {
             width: 100%;
-            height: 670px;
-            background: url("{{url_for('static',filename='sign_image/bg.jpg')}}") no-repeat;
+            height: 700px;
+            margin: 0;
             position: relative;
             background-size: 100% 100%;
         }
@@ -139,21 +143,25 @@
 <body>
     <div class="whole w">
     <div class="right">
-        <div class="reg"><a href="{{ url_for('main.index') }}" style="color: #0C7721;">返回首页</a>&nbsp;&nbsp;<a href="{{ url_for('user.reg') }}" style="color: #0C7721;">用户注册</a>
+        <div class="reg"><a href="#" style="color: #0C7721;">返回首页</a>&nbsp;&nbsp;<a href="{{ url_for('user.reg') }}" style="color: #0C7721;">用户注册</a>
         </div>
         <div class="user">
             <div class="sign">
                     <script>
                         window.onload = function () {
+                            var x;
                             if ({{ isAlert }}) {
                                 alert("{{ message }}");
                             }
                             if ({{ isJump }}) {
                                 if ({{ isAdministrator }}){
-                                    window.open("{{ url_for("manager.user_manage")}}", "_self");
+                                    x = x+1;
+                                    {# window.open("{{ url_for("manager.user_manage")}}", "_self"); #}
+
                                 }
                                 else{
-                                    window.open("{{ url_for("main.index")}}", "_self");
+                                    x = x - 1;
+                                    {# window.open("{{ url_for("main.index")}}", "_self"); #}
                                 }
                             }
                         }
@@ -162,15 +170,14 @@
                     {{ form.hidden_tag() }}
                     <li class="sign_title">用户登录</li>
                     <li>
-                        <img src="{{ url_for('static',filename='sign_image/user.png') }}" alt="" style="height: 80%; width: auto; margin: 0 5px 5px 12px;">{{ form.name }}
+                        {{ form.name }}
                     </li>
                     <li>
-                        <img src="{{ url_for('static',filename='sign_image/pwd.png') }}" alt="" style="height: 80%; width: auto; margin: 3px 5px 5px 10px;">{{ form.password }}
+                        {{ form.password }}
                     </li>
                     {{ form.isAdministrator }} 以管理员身份登录 <!--打钩框位置-->
                     {{ form.submit }}
                 </form>
-
             </div>
         </div>
     </div>
