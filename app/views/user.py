@@ -1,15 +1,19 @@
+import configparser
+
 from app.views import verificationCode
 from flask import render_template, session, Blueprint
 
 from app.forms import User_info, Register
-from app.models import Users
+from app.models import Users, initial_database
 from app.extensions import db
 
 import os
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-
 user = Blueprint('user', __name__)
+
+basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+cf = configparser.ConfigParser()
+cf.read(basedir + r'\config.ini', encoding='utf-8')
 
 
 # 验证码
@@ -20,6 +24,15 @@ def imgCode():
 
 @user.route('/login', methods=['GET', 'POST'])
 def login():
+    is_first_load = cf.getboolean("mysql", "is_first_load")
+    if is_first_load:
+        initial_database(db)
+        cf.set("mysql", "is_first_load", "False")
+        f = open(basedir + r'\config.ini', 'w')
+        cf.write(f)
+        f.close()
+        del f
+        print("!")
     form = User_info()
     message = ''
     isAlert = 0
