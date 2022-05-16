@@ -1,0 +1,6 @@
+Flask==2.1.2
+Flask_SQLAlchemy==2.5.1
+Flask_WTF==1.0.1
+openpyxl==3.0.9
+Pillow==9.1.0
+WTForms==3.0.1

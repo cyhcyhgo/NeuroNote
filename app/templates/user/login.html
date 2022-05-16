@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>用户登录</title>
+    <link rel="SHORTCUT ICON" href="{{ url_for('static', filename='images2/logo2.jpg') }}">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin-top: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            color: green;
+            font-weight: 700;
+        }
+
+        .w {
+            width: 100%;
+            height: 100%;
+            align: top auto;
+        }
+
+        .whole {
+            width: 100%;
+            height: 670px;
+            background: url("{{url_for('static',filename='sign_image/bg.jpg')}}") no-repeat;
+            position: relative;
+            background-size: 100% 100%;
+        }
+
+        .right {
+            height: 100%;
+            width: 420px;
+            background: rgba(0, 0, 0, 0.2);
+            float: right;
+            position: relative;
+        }
+
+        .user {
+            width: 100%;
+            height: 40%;
+            margin-top: 40%;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .reg {
+            /*		background-color: pink;
+            /*
+                    position: absolute;
+                    top: 40px;
+                    right: 60px;
+            */
+            margin-top: 60px;
+            margin-right: 70px;
+            float: right;
+            font-size: 14px;
+            color: #FDFBFB;
+            font-weight: 700;
+        }
+
+        .sign {
+            margin-top: 0;
+            width: 300px;
+            margin-left: 60px;
+        }
+
+        .sign li {
+            width: 100%;
+            height: 40px;
+            background-color: rgb(235, 234, 235);
+            margin-bottom: 4px;
+        }
+
+        .sign li:first-child {
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .sign input {
+            height: 40px;
+            width: 250px;
+            border: 1px solid black;
+            float: right;
+            padding-left: 2px;
+        }
+
+        #but {
+            margin-top: 0;
+            width: 100%;
+            background-color: #4A8B31;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 40px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .sign .sign_title {
+            text-align: left;
+            padding-left: 10px;
+            line-height: 40px;
+            font-weight: 700;
+        }
+
+        #check {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            color: #fff;
+            outline: none;
+            background: #fff;
+            cursor: pointer;
+            /* -webkit-appearance: none;*/
+        }
+
+        /* 打钩框属性*/
+
+    </style>
+</head>
+
+<body>
+    <div class="whole w">
+    <div class="right">
+        <div class="reg"><a href="{{ url_for('main.index') }}" style="color: #0C7721;">返回首页</a>&nbsp;&nbsp;<a href="{{ url_for('user.reg') }}" style="color: #0C7721;">用户注册</a>
+        </div>
+        <div class="user">
+            <div class="sign">
+                    <script>
+                        window.onload = function () {
+                            if ({{ isAlert }}) {
+                                alert("{{ message }}");
+                            }
+                            if ({{ isJump }}) {
+                                if ({{ isAdministrator }}){
+                                    window.open("{{ url_for("manager.user_manage")}}", "_self");
+                                }
+                                else{
+                                    window.open("{{ url_for("main.index")}}", "_self");
+                                }
+                            }
+                        }
+                    </script>
+                <form method="post" action="{{ url_for('user.login') }}">
+                    {{ form.hidden_tag() }}
+                    <li class="sign_title">用户登录</li>
+                    <li>
+                        <img src="{{ url_for('static',filename='sign_image/user.png') }}" alt="" style="height: 80%; width: auto; margin: 0 5px 5px 12px;">{{ form.name }}
+                    </li>
+                    <li>
+                        <img src="{{ url_for('static',filename='sign_image/pwd.png') }}" alt="" style="height: 80%; width: auto; margin: 3px 5px 5px 10px;">{{ form.password }}
+                    </li>
+                    {{ form.isAdministrator }} 以管理员身份登录 <!--打钩框位置-->
+                    {{ form.submit }}
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
